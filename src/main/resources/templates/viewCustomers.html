@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Intercom Customer Invitation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link data-require="datatables@*" data-semver="1.10.12" rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+    <link data-require="font-awesome@*" data-semver="4.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+    <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+    <script data-require="jquery" data-semver="3.0.0" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
+    <script data-require="datatables@*" data-semver="1.10.12" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+<div><h1>Customer data to calculate distance</h1></div>
+<p id="customers" th:text="${customers}" style="display:none;" />
+<table id="customer_data" class="cell-border compact stripe hover">
+    <thead>
+    <tr>
+        <th>Latitude</th>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Longitude</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>latitude</td>
+        <td>user_id</td>
+        <td>name</td>
+        <td>longitude</td>
+    </tr>
+    </tbody>
+</table>
+<button class="btn btn-success btn-default" onclick="location.href='/result'">Generate invitation list</button>
+<script>
+    let tableData = JSON.parse(document.getElementById('customers').innerHTML);
+    $(function(){
+        $("#customer_data").DataTable({
+            data: tableData,
+            columns: [
+                { "data": "latitude" },
+                { "data": "user_id" },
+                { "data": "name" },
+                { "data": "longitude"}
+            ],
+            iDisplayLength: 20,
+        });
+    })
+</script>
+</body>
+</html>
